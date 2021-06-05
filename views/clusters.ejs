@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+	<title>File Clusters</title>
+
+	<style>
+		#myChart {
+			display: block;
+			margin-left: auto;
+			margin-right: auto;
+			margin-top: 30%;
+		}
+	</style>
+</head>
+
+<body>
+	<div class="chart-container" style="text-align:center; position: relative; margin:auto; margin-top:auto; height:100vh; width:50vw">
+		<canvas id="myChart"></canvas>
+	</div>
+	<span style="display:none;" id="data"><%= data %></span>
+
+
+	<!-- <script src="js/carrotsearch.circles.js"></script> -->
+	<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+	<script type="text/javascript">
+		var canvas = document.getElementById('myChart')
+		var ctx = canvas.getContext('2d');
+		var data = document.getElementById('data').innerHTML;
+		data = JSON.parse(data);
+		// works same as charts option onClick
+		// uncomment if onClick in chart doesn't work
+		// canvas.onclick = function (evt) {
+		// 	var activePoints = chart.getElementsAtEvent(evt);
+		// 	console.log(activePoints);
+		// 	// => activePoints is an array of points on the canvas that are at the same position as the click event.
+		// };
+		// console.log(data);
+		var len = data.labels.length;
+		var label_data = [], colors = [];
+		// build the label data array and colors array for viewing the chart
+		for (let i = 0; i < len; i++) {
+			label_data.push(i + 1);
+			let n = (Math.random() * 0xfffff * 1000000).toString(16);
+			let clr = '#' + n.slice(0, 6);
+			colors.push(clr);
+		}
+		// console.log(colors);
+		// console.log(data);
+		// console.log(data.names);
+		// console.log(data['labels']);
+		var chart = new Chart(ctx, {
+			type: 'doughnut',
+
+			data: {
+				datasets: [{
+					data: label_data,
+					backgroundColor: colors,
+				}],
+				labels: data.names
+			},
+			options: {
+				mainAspectRatio: false, 
+				legend: {
+					display: true
+				},
+				'onClick': function (evt, item) {
+					if (item && item[0]) {
+						location.href = 'pdf/' + data.files[item[0]._index].filename;
+					}
+				}
+			},
+		});
+		chart.canvas.parentNode.style.height = '150%';
+		chart.canvas.parentNode.style.width = '150%';
+	</script>
+</body>
+
+</html>

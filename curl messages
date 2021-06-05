@@ -1,0 +1,165 @@
+curl -X PUT http://localhost:10082/connectors/mongo-source/config -H "Content-Type: application/json" -d '{
+      "tasks.max":1,
+      "connector.class":"com.mongodb.kafka.connect.MongoSourceConnector",
+      "key.converter":"org.apache.kafka.connect.storage.StringConverter",
+      "value.converter":"org.apache.kafka.connect.storage.StringConverter",
+      "connection.uri":"mongodb://127.0.0.1:27017/project",
+      "database":"project",
+      "collection":"documents.files14",
+      "pipeline":"[{\"$match\": { \"$and\": [ { \"updateDescription.updatedFields.quantity\" : { \"$lte\": 5 } }, {\"operationType\": \"update\"}]}}]", 
+      "topic.prefix": ""
+    
+}'
+
+curl -X POST -H "Content-Type: application/json" --data '{"name": "mongo-source","config": {"tasks.max":"1","connector.class":"com.mongodb.kafka.connect.MongoSourceConnector","connection.uri":"mongodb://127.0.0.1:27017/project","topic.prefix":"identity.identity.documents.files14","database":"project","collection":"documents.files14"}}' http://localhost:10082/connectors -w "\n"
+
+curl localhost:10082/connectors/mongo-source/status
+
+curl http://localhost:10082/connectors/mongo-sink "HTTP/1.1 Accept: application/json  -d '{
+  "city": "Springfield",
+  "forecast": [
+    {
+      "temp": {
+        "degrees": 25.3,
+        "units": "C",
+        "range": {
+          "low": 23.0,
+          "high": 28.7
+        }
+      }
+    }
+  ]
+
+}'"
+
+curl -X -POST http://localhost:10082/connectors/mongo-sink -H "Content-Type: application/json" -d '{ "city": "Springfield","forecast": [
+    {
+      "temp": {
+        "degrees": 25.3,
+        "units": "C",
+        "range": {
+          "low": 23.0,
+          "high": 28.7
+        }
+      }
+    }
+  ]
+
+}'
+
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "city": {
+      "type": "string"
+    },
+    "forecast": {
+      "type": "array",
+      "items": [
+        {
+          "type": "object",
+          "properties": {
+            "temp": {
+              "type": "object",
+              "properties": {
+                "degrees": {
+                  "type": "number"
+                },
+                "units": {
+                  "type": "string"
+                },
+                "range": {
+                  "type": "object",
+                  "properties": {
+                    "low": {
+                      "type": "number"
+                    },
+                    "high": {
+                      "type": "number"
+                    }
+                  },
+                  "required": [
+                    "low",
+                    "high"
+                  ]
+                }
+              },
+              "required": [
+                "degrees",
+                "units",
+                "range"
+              ]
+            }
+          },
+          "required": [
+            "temp"
+          ]
+        }
+      ]
+    }
+  },
+  "required": [
+    "city",
+    "forecast"
+  ]
+}
+{ "schema": {
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "city": {
+      "type": "string"
+    },
+    "forecast": {
+      "type": "array",
+      "items": [
+        {
+          "type": "object",
+          "properties": {
+            "temp": {
+              "type": "object",
+              "properties": {
+                "degrees": {
+                  "type": "number"
+                },
+                "units": {
+                  "type": "string"
+                },
+                "range": {
+                  "type": "object",
+                  "properties": {
+                    "low": {
+                      "type": "number"
+                    },
+                    "high": {
+                      "type": "number"
+                    }
+                  },
+                  "required": [
+                    "low",
+                    "high"
+                  ]
+                }
+              },
+              "required": [
+                "degrees",
+                "units",
+                "range"
+              ]
+            }
+          },
+          "required": [
+            "temp"
+          ]
+        }
+      ]
+    }
+  },
+  "required": [
+    "city",
+    "forecast"
+  ]
+} , "payload":{ "city": "Springfield","forecast": [{"temp": {"degrees": 25.3,"units": "C","range": {"low": 23.0,"high": 28.7}}}]}}
+
+{"schema": { "type": "struct","name": "fulfillment.inventory.customers.Key","optional": false,"fields": [{"field": "id","type": "string","optional": false}]},"payload": {"id": "1004"}}

@@ -1,0 +1,9 @@
+1.	Start the zookeeper -C:\apache-zookeeper-3.6.1-bin\bin>zkServer
+2.	Start Kafka  - sudo ./kafka-server-start.sh  ../config/server.properties
+3.	Create a Topic  - sudo ./kafka-topics.sh --create --zookeeper localhost:2181 --replication-factor 1 --partitions 1 --topic test2
+4.	Create Producer  - sudo ./kafka-console-producer.sh ../config/server --broker-list localhost:9092 --topic test
+5.	sudo ./kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic test
+6.	kafka-topics.sh --zookeeper localhost:2181 --delete --topic test
+7.	sudo ./connect-standalone.sh ../config/worker.properties ../config/MongoSinkConnector.properties
+8.  Show topics - sudo ./kafka-topics.sh --zookeeper localhost:2181 --list
+9.  Delete topics - sudo ./kafka-topics.sh --zookeeper localhost:2181 --delete --topic 'documents.*'

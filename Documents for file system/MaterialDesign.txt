@@ -1,0 +1,34 @@
+Theming
+Material Theming makes it easy to customize Material Design to match the look and feel of your brand, with built-in support and guidance for customizing colors, typography styles, and corner shapes.
+
+The color, typography, and shape of Material Components like buttons can be easily modified to match your brand.
+
+Resources
+Build a Material Theme using Glitch or Android Studio
+Material Theming guidance
+Example apps using Material Theming
+Color
+
+Material’s color system is an organized approach to applying color to a UI.
+
+Material’s color system is an organized approach to applying color to a UI. Global color styles have semantic names and defined usage in components – primary, secondary (brand colors), surface, background, and error.
+
+Every color also has a complementary color used for elements placed “on” top of it to promote consistency and accessible contrast.
+
+Typography
+
+The Material Design type scale provides 13 typography styles for everything from headlines to body text and captions.
+
+The Material Design type scale provides 13 typography styles for everything from headlines to body text and captions. Each style has a clear meaning and intended application within an interface.
+
+Important attributes, such as the typeface, font weight, and letter case, can be modified to match your brand and design.
+
+Shape
+
+Applying shape styles can help direct attention or identify components, communicate their state, and express your brand.
+
+Applying shape styles can help direct attention or identify components, communicate their state, and express your brand.
+
+All Material Components are grouped into shape categories based on their size (small, medium, large). These global styles provide a way to quickly change the shape of similarly-sized components.
+
+You can generate your own shape styles with the shape customization tool.
